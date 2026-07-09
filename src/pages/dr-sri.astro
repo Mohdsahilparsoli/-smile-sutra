@@ -1921,5 +1921,48 @@ import Layout from "../layouts/BlogPost.astro";
 
     </style>
 
- 
+    <script is:inline>
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const closeDrawer = document.getElementById("closeDrawer");
+      const mobileNav = document.getElementById("mobileNav");
+      const navOverlay = document.getElementById("navOverlay");
+
+      function openDrawer() {
+        mobileNav.classList.add("open");
+        navOverlay.classList.add("open");
+      }
+      function closeDrawerFn() {
+        mobileNav.classList.remove("open");
+        navOverlay.classList.remove("open");
+      }
+      hamburgerBtn.addEventListener("click", openDrawer);
+      closeDrawer.addEventListener("click", closeDrawerFn);
+      navOverlay.addEventListener("click", closeDrawerFn);
+      mobileNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeDrawerFn));
+
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => io.observe(el));
+
+      const headerEl = document.querySelector("header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 10) {
+          headerEl.style.boxShadow = "0 4px 20px rgba(11,59,92,0.08)";
+        } else {
+          headerEl.style.boxShadow = "none";
+        }
+      });
+    </script>
 </Layout>
