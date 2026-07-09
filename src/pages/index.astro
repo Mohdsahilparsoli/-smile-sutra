@@ -1,49 +1,2238 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      /* ===== Hero ===== */
+      .hero {
+        position: relative;
+        background: linear-gradient(180deg, var(--sky-pale) 0%, #ffffff 100%);
+        padding: 72px 0 40px;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -120px;
+        right: -160px;
+        width: 480px;
+        height: 480px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(70, 183, 232, 0.2),
+          transparent 70%
+        );
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 48px;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-copy h1 {
+        font-size: 46px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+      }
+      .hero-copy h1 span {
+        color: var(--sky);
+        position: relative;
+        white-space: nowrap;
+      }
+      .hero-copy p {
+        font-size: 17px;
+        color: var(--ink-soft);
+        max-width: 520px;
+        margin-bottom: 28px;
+      }
+      .hero-cta-row {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+      }
+      .trust-row {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+      }
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .trust-num {
+        font-family: "Sora", sans-serif;
+        font-weight: 800;
+        font-size: 22px;
+        color: var(--navy);
+      }
+      .trust-label {
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        font-weight: 600;
+        max-width: 100px;
+        line-height: 1.3;
+      }
+
+      .hero-visual {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .hero-blob {
+        position: absolute;
+        width: 390px;
+        height: 390px;
+        background: linear-gradient(160deg, var(--sky), var(--navy));
+        border-radius: 44% 56% 60% 40% / 48% 42% 58% 52%;
+        opacity: 0.14;
+        animation: blobmove 9s ease-in-out infinite;
+      }
+      @keyframes blobmove {
+        0%,
+        100% {
+          border-radius: 44% 56% 60% 40% / 48% 42% 58% 52%;
+        }
+        50% {
+          border-radius: 58% 42% 40% 60% / 40% 58% 42% 60%;
+        }
+      }
+      .doctor-card {
+        position: relative;
+        width: 340px;
+        animation: floaty 5s ease-in-out infinite;
+      }
+      @keyframes floaty {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-16px);
+        }
+      }
+      .doctor-photo-frame {
+        width: 100%;
+        aspect-ratio: 4/5;
+        border-radius: 28px;
+        background: linear-gradient(160deg, var(--navy), var(--sky));
+        padding: 6px;
+        box-shadow: var(--shadow-lg);
+      }
+      .doctor-photo-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        background: var(--sky-light);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .doctor-silhouette {
+        height: 100%;
+      }
+      .float-badge {
+        position: absolute;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--navy);
+        animation: floaty 4.5s ease-in-out infinite;
+      }
+      .badge-1 {
+        top: 6%;
+        left: -14%;
+        animation-delay: 0.4s;
+      }
+      .badge-2 {
+        bottom: 10%;
+        right: -16%;
+        animation-delay: 0.9s;
+      }
+      .badge-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 9px;
+        background: var(--sky-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+      }
+      .badge-1 .badge-icon {
+        background: linear-gradient(135deg, var(--mint), #5adfcb);
+        color: #fff;
+      }
+      .badge-2 .badge-icon {
+        background: linear-gradient(135deg, var(--sky), var(--navy));
+        color: #fff;
+      }
+
+      /* smile-curve divider */
+      .curve-divider {
+        display: block;
+        width: 100%;
+        line-height: 0;
+      }
+      .curve-divider svg {
+        width: 100%;
+        height: 60px;
+        display: block;
+      }
+
+      /* ===== Section shared ===== */
+      section {
+        padding: 88px 0;
+      }
+      .section-head {
+        max-width: 640px;
+        margin-bottom: 52px;
+      }
+      .section-head h2 {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin-bottom: 14px;
+      }
+      .section-head p {
+        color: var(--ink-soft);
+        font-size: 16px;
+      }
+      .section-alt {
+        background: var(--sky-pale);
+      }
+
+      /* ===== About ===== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 56px;
+        align-items: center;
+      }
+      .about-visual {
+        position: relative;
+        border-radius: var(--radius);
+        background: linear-gradient(160deg, var(--navy), var(--sky));
+        padding: 32px;
+        color: #fff;
+        box-shadow: var(--shadow-md);
+      }
+      .about-visual h3 {
+        color: #fff;
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      .about-visual p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14.5px;
+        margin-bottom: 22px;
+      }
+      .location-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .location-tags span {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 8px 14px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .about-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+      }
+      .about-stat {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+      }
+      .about-stat b {
+        display: block;
+        font-family: "Sora", sans-serif;
+        font-size: 22px;
+      }
+      .about-stat span {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .about-body p {
+        color: var(--ink-soft);
+        margin-bottom: 16px;
+        font-size: 15.5px;
+      }
+      .about-points {
+        display: grid;
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .about-point {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .about-point:hover {
+        transform: translateX(6px);
+        box-shadow: var(--shadow-md);
+      }
+      .about-point-icon {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--sky-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      .about-point h4 {
+        font-size: 15.5px;
+        margin-bottom: 3px;
+      }
+      .about-point p {
+        font-size: 13.5px;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+
+      /* ===== Services ===== */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .service-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 28px 24px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--sky), var(--mint));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: transparent;
+      }
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+      .service-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 15px;
+        background: var(--sky-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        margin-bottom: 18px;
+      }
+      .service-card h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      .service-card p {
+        font-size: 14px;
+        color: var(--ink-soft);
+        margin-bottom: 16px;
+      }
+      .service-price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 14px;
+        border-top: 1px dashed var(--line);
+      }
+      .service-price b {
+        color: var(--navy);
+        font-size: 15px;
+      }
+      .service-price a {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--sky);
+      }
+      .service-price a:hover {
+        color: var(--navy);
+      }
+
+      /* ===== Specialist ===== */
+      .specialist {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 52px;
+        align-items: center;
+        background: linear-gradient(135deg, var(--navy), var(--navy-deep));
+        border-radius: 28px;
+        padding: 52px;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+      }
+      .specialist::after {
+        content: "";
+        position: absolute;
+        bottom: -100px;
+        left: -100px;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(70, 183, 232, 0.25),
+          transparent 70%
+        );
+      }
+      .specialist-photo {
+        position: relative;
+        z-index: 2;
+      }
+      .specialist-photo-frame {
+        width: 100%;
+        aspect-ratio: 1/1.05;
+        border-radius: 22px;
+        background: linear-gradient(160deg, var(--sky), #fff2);
+        padding: 5px;
+      }
+      .specialist-photo-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .specialist-photo-inner img.doctor-silhouette {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
+      .specialist-info {
+        position: relative;
+        z-index: 2;
+      }
+      .specialist-info .eyebrow {
+        background: rgba(255, 255, 255, 0.12);
+        color: #8fe0d3;
+      }
+      .specialist-info .eyebrow::before {
+        background: #8fe0d3;
+      }
+      .specialist-info h2 {
+        color: #fff;
+        font-size: 30px;
+        margin-bottom: 6px;
+      }
+      .specialist-role {
+        color: var(--sky);
+        font-weight: 700;
+        font-size: 14.5px;
+        margin-bottom: 18px;
+      }
+      .specialist-info p.desc {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 15px;
+        margin-bottom: 24px;
+        max-width: 520px;
+      }
+      .cred-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 26px;
+      }
+      .cred-item {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+      }
+      .cred-item b {
+        display: block;
+        font-family: "Sora", sans-serif;
+        font-size: 21px;
+        color: #fff;
+      }
+      .cred-item span {
+        font-size: 11.5px;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .cred-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+      .cred-tags span {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 7px 13px;
+        border-radius: 100px;
+        font-size: 12.5px;
+      }
+
+      /* ===== Appointment form ===== */
+      .appt-wrap {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 44px;
+        align-items: flex-start;
+      }
+      .appt-side h2 {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+      .appt-side p {
+        color: var(--ink-soft);
+        font-size: 15.5px;
+        margin-bottom: 26px;
+      }
+      .appt-perks {
+        display: grid;
+        gap: 16px;
+      }
+      .appt-perk {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .appt-perk .badge-icon {
+        background: var(--sky-light);
+      }
+      .appt-perk h4 {
+        font-size: 14.5px;
+        margin-bottom: 2px;
+      }
+      .appt-perk p {
+        font-size: 13px;
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .appt-form {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 34px;
+        box-shadow: var(--shadow-md);
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .form-group.full {
+        grid-column: 1/-1;
+      }
+      .form-group label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .form-group input,
+      .form-group select {
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 14.5px;
+        font-family: inherit;
+        color: var(--ink);
+        background: var(--sky-pale);
+        transition:
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--sky);
+        background: #fff;
+      }
+      .phone-wrap {
+        display: flex;
+        align-items: center;
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        background: var(--sky-pale);
+        overflow: hidden;
+        transition:
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+      .phone-wrap:focus-within {
+        border-color: var(--sky);
+        background: #fff;
+      }
+      .phone-wrap span {
+        padding: 12px 12px;
+        font-weight: 700;
+        color: var(--navy);
+        border-right: 1.5px solid var(--line);
+        font-size: 14.5px;
+      }
+      .phone-wrap input {
+        border: none;
+        background: transparent;
+        flex: 1;
+        padding: 12px 14px;
+        font-size: 14.5px;
+        font-family: inherit;
+      }
+      .phone-wrap input:focus {
+        outline: none;
+      }
+      .form-note {
+        font-size: 12px;
+        color: var(--ink-soft);
+        margin-top: 14px;
+        text-align: center;
+      }
+      #form-success {
+        display: none;
+        text-align: center;
+        padding: 40px 10px;
+      }
+      #form-success .badge-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 28px;
+        margin: 0 auto 16px;
+        background: var(--mint);
+        color: #fff;
+        border-radius: 16px;
+      }
+      #form-success h3 {
+        margin-bottom: 8px;
+      }
+      #form-success p {
+        color: var(--ink-soft);
+        font-size: 14.5px;
+      }
+
+      /* ===== Testimonials ===== */
+      .testi-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .testi-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .testi-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-md);
+      }
+      .testi-stars {
+        color: #f4b400;
+        font-size: 14px;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+      }
+      .testi-card p.quote {
+        font-size: 14.5px;
+        color: var(--ink);
+        margin-bottom: 18px;
+      }
+      .testi-person {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .testi-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--sky), var(--navy));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .testi-person b {
+        display: block;
+        font-size: 14px;
+        color: var(--navy);
+      }
+      .testi-person span {
+        font-size: 12px;
+        color: var(--ink-soft);
+      }
+
+      /* ===== Contact ===== */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .contact-cards {
+        display: grid;
+        gap: 16px;
+      }
+      .contact-card {
+        display: flex;
+        gap: 16px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 18px;
+        box-shadow: var(--shadow-sm);
+        align-items: flex-start;
+      }
+      .contact-card .badge-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        border-radius: 12px;
+      }
+      .contact-card h4 {
+        font-size: 15px;
+        margin-bottom: 4px;
+      }
+      .contact-card p {
+        font-size: 13.5px;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+      .contact-card a {
+        color: var(--sky);
+        font-weight: 700;
+      }
+      .map-frame {
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--line);
+        height: 100%;
+        min-height: 360px;
+      }
+      .map-frame iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 360px;
+        border: 0;
+        display: block;
+      }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 980px) {
+        .hero-grid,
+        .about-grid,
+        .specialist,
+        .appt-wrap,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .specialist {
+          padding: 36px 26px;
+        }
+        .specialist-photo {
+          max-width: 320px;
+          margin: 0 auto;
+        }
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .testi-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-copy h1 {
+          font-size: 38px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        nav,
+        .call-chip {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .btn-primary.nav-book {
+          display: none;
+        }
+        section {
+          padding: 64px 0;
+        }
+        .hero {
+          padding: 44px 0 30px;
+        }
+        .hero-copy h1 {
+          font-size: 32px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .testi-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .cred-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .doctor-card {
+          width: 270px;
+        }
+        .float-badge {
+          font-size: 11px;
+          padding: 8px 10px;
+        }
+        .badge-1 {
+          left: -8%;
+        }
+        .badge-2 {
+          right: -8%;
+        }
+        .trust-row {
+          gap: 18px;
+        }
+        .section-head h2 {
+          font-size: 27px;
+        }
+      }
+
+      /* Mobile nav drawer */
+      .mobile-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 78%;
+        max-width: 320px;
+        background: #fff;
+        box-shadow: -10px 0 40px rgba(11, 59, 92, 0.2);
+        z-index: 1100;
+        padding: 26px 24px;
+        transform: translateX(100%);
+        transition: transform 0.35s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .mobile-nav.open {
+        transform: translateX(0);
+      }
+      .mobile-nav a {
+        padding: 14px 6px;
+        font-weight: 700;
+        color: var(--navy);
+        border-bottom: 1px solid var(--line);
+        font-size: 15px;
+      }
+      .mobile-nav .btn {
+        margin-top: 16px;
+      }
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 59, 92, 0.35);
+        z-index: 1050;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .nav-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .close-drawer {
+        align-self: flex-end;
+        background: var(--sky-light);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: var(--navy);
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <!-- ===== HERO ===== -->
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal in-view">
+            <div class="eyebrow">Delhi · Noida · Gurgaon · Ghaziabad</div>
+
+            <h1>
+              Your smile deserves <span>expert care</span>, close to home in NCR
+            </h1>
+
+            <p>
+              Painless root canals, invisible braces, and dental implants by
+              NCR's trusted specialist, Dr. Sri &mdash; with 10+ years of
+              experience and 5000+ happy patients across Delhi NCR.
+            </p>
+
+            <div class="hero-cta-row">
+              <a href="#appointment" class="btn btn-primary">
+                Book Free Consultation
+              </a>
+
+              <a href="tel:+919810022334" class="btn btn-ghost">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.09 5.18 2 2 0 0 1 5.08 3h3a2 2 0 0 1 2 1.72l.36 2.45a2 2 0 0 1-.57 1.74L8.09 10.91a16 16 0 0 0 5 5l2-2a2 2 0 0 1 1.74-.57l2.45.36A2 2 0 0 1 22 16.92z"
+                  ></path>
+                </svg>
+                Call +91 98100 22334
+              </a>
+            </div>
+
+            <div class="trust-row">
+              <div class="trust-item">
+                <span class="trust-num">10+</span>
+                <span class="trust-label">Years of clinical experience</span>
+              </div>
+
+              <div class="trust-item">
+                <span class="trust-num">5000+</span>
+                <span class="trust-label">Happy patients treated</span>
+              </div>
+
+              <div class="trust-item">
+                <span class="trust-num">4.9★</span>
+                <span class="trust-label">Google rating, 800+ reviews</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal reveal-delay-2 in-view">
+            <div class="hero-blob"></div>
+
+            <div class="doctor-card">
+              <div class="doctor-photo-frame">
+                <div class="doctor-photo-inner">
+                  <!-- Real Doctor Image -->
+                  <img
+                    class="doctor-silhouette"
+                    src="assets/img/doctore-hero.png"
+                    alt="Professional Dentist"
+                  />
+                </div>
+              </div>
+
+              <div class="float-badge badge-1">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M8 21h8"></path>
+                    <path d="M12 17v4"></path>
+                    <path
+                      d="M8 3h8v5a4 4 0 0 0 4 4h1a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5h1a4 4 0 0 0 4-4V3z"
+                    ></path>
+                  </svg>
+                </span>
+
+                <span>10+ Years<br />Experience</span>
+              </div>
+
+              <div class="float-badge badge-2">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                    <path d="M9 10h.01"></path>
+                    <path d="M15 10h.01"></path>
+                  </svg>
+                </span>
+
+                <span>5000+ Happy<br />Patients</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="curve-divider">
+          <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path
+              d="M0,32 C240,64 480,0 720,20 C960,40 1200,64 1440,24 L1440,60 L0,60 Z"
+              fill="#FFFFFF"></path>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ===== ABOUT ===== -->
+      <section id="about">
+        <div class="container about-grid">
+          <div class="about-visual reveal">
+            <div
+              class="eyebrow"
+              style="background:rgba(255,255,255,0.15); color:#fff;"
+            >
+              Serving all of NCR
+            </div>
+
+            <h3>One clinic, every corner of the capital covered</h3>
+
+            <p>
+              Conveniently located to serve patients across the National Capital
+              Region &mdash; whether you're commuting from South Delhi, Sector
+              62 Noida, DLF Gurgaon, or Vaishali Ghaziabad.
+            </p>
+
+            <div class="location-tags">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="margin-right:6px;vertical-align:middle;"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"
+                  ></path>
+                </svg>
+                Delhi
+              </span>
+
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="margin-right:6px;vertical-align:middle;"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"
+                  ></path>
+                </svg>
+                Noida
+              </span>
+
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="margin-right:6px;vertical-align:middle;"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"
+                  ></path>
+                </svg>
+                Gurgaon
+              </span>
+
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="margin-right:6px;vertical-align:middle;"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"
+                  ></path>
+                </svg>
+                Ghaziabad
+              </span>
+            </div>
+
+            <div class="about-stats">
+              <div class="about-stat">
+                <b>10+</b>
+                <span>Years serving NCR families</span>
+              </div>
+
+              <div class="about-stat">
+                <b>5000+</b>
+                <span>Happy patients treated</span>
+              </div>
+
+              <div class="about-stat">
+                <b>15+</b>
+                <span>Dental procedures offered</span>
+              </div>
+
+              <div class="about-stat">
+                <b>7 Days</b>
+                <span>Open, incl. Sundays</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-body reveal reveal-delay-1">
+            <div class="eyebrow">About Smile Sutra</div>
+
+            <h2>Modern dentistry, rooted in trust for Delhi NCR families</h2>
+
+            <p>
+              Smile Sutra Dental &amp; Implant Clinic has been caring for smiles
+              across Delhi NCR for over a decade. From single-sitting root
+              canals to full-mouth implant rehabilitation, our sterilised,
+              hospital-grade setup uses the latest digital X-rays and painless
+              techniques so every visit feels calm and comfortable.
+            </p>
+
+            <p>
+              We believe good dental care shouldn't mean long waits or confusing
+              bills &mdash; our team explains every treatment plan and cost
+              upfront in simple terms, in Hindi or English, whichever you
+              prefer.
+            </p>
+
+            <div class="about-points">
+              <div class="about-point">
+                <span class="about-point-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20 7L9 18l-5-5"></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>International hygiene standards</h4>
+                  <p>
+                    Autoclave sterilisation and single-use disposables for every
+                    patient.
+                  </p>
+                </div>
+              </div>
+
+              <div class="about-point">
+                <span class="about-point-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                    <path d="M2 10h20"></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Transparent, fair pricing</h4>
+                  <p>
+                    Upfront INR quotes with easy EMI options &mdash; no hidden
+                    charges.
+                  </p>
+                </div>
+              </div>
+
+              <div class="about-point">
+                <span class="about-point-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 7v5l3 2"></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Flexible NCR-friendly timings</h4>
+                  <p>
+                    Open 7 days a week, including evenings for working
+                    professionals.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SERVICES ===== -->
+      <section class="section-alt" id="services">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="eyebrow">Our Treatments</div>
+            <h2>Complete dental care under one roof</h2>
+            <p>
+              From routine check-ups to advanced implant surgery, every
+              treatment is performed by specialists using modern,
+              minimally-invasive techniques.
+            </p>
+          </div>
+
+          <div class="services-grid">
+            <div class="service-card reveal">
+              <div class="service-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M14 4.5l5.5 5.5"></path>
+                  <path d="M13 6l5 5"></path>
+                  <path d="M3 21l6-6"></path>
+                  <path d="M12.5 7.5L7 13"></path>
+                  <path d="M8 14l2 2"></path>
+                </svg>
+              </div>
+
+              <h3>Root Canal Treatment (RCT)</h3>
+
+              <p>
+                Single-sitting, painless root canal therapy with rotary
+                endodontics to save your natural tooth.
+              </p>
+
+              <div class="service-price">
+                <b>From ₹2,500</b>
+                <a href="#appointment">Book Now →</a>
+              </div>
+            </div>
+
+            <div class="service-card reveal reveal-delay-1">
+              <div class="service-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M7 3h10"></path>
+                  <path d="M8 3v6"></path>
+                  <path d="M16 3v6"></path>
+                  <path d="M8 9l4 12"></path>
+                  <path d="M16 9l-4 12"></path>
+                </svg>
+              </div>
+
+              <h3>Braces &amp; Aligners</h3>
+
+              <p>
+                Metal, ceramic, and clear invisible aligners to straighten teeth
+                discreetly at any age.
+              </p>
+
+              <div class="service-price">
+                <b>From ₹25,000</b>
+                <a href="#appointment">Book Now →</a>
+              </div>
+            </div>
+
+            <div class="service-card reveal reveal-delay-2">
+              <div class="service-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 2c3 0 5 2.5 5 6v4c0 5-2 9-5 10-3-1-5-5-5-10V8c0-3.5 2-6 5-6z"
+                  ></path>
+                </svg>
+              </div>
+
+              <h3>Dental Implants</h3>
+
+              <p>
+                Permanent, natural-looking tooth replacement with premium
+                implant systems and lifetime support.
+              </p>
+
+              <div class="service-price">
+                <b>From ₹18,000</b>
+                <a href="#appointment">Book Now →</a>
+              </div>
+            </div>
+
+            <div class="service-card reveal">
+              <div class="service-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 3l2.2 5.3L20 10l-5.8 1.7L12 17l-2.2-5.3L4 10l5.8-1.7L12 3z"
+                  ></path>
+                </svg>
+              </div>
+
+              <h3>Teeth Whitening</h3>
+
+              <p>
+                Safe, in-clinic laser whitening for a brighter smile in under 45
+                minutes.
+              </p>
+
+              <div class="service-price">
+                <b>From ₹4,500</b>
+                <a href="#appointment">Book Now →</a>
+              </div>
+            </div>
+
+            <div class="service-card reveal reveal-delay-1">
+              <div class="service-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="8" r="3"></circle>
+                  <path d="M6 20v-1a6 6 0 0112 0v1"></path>
+                </svg>
+              </div>
+
+              <h3>Kids' Dentistry</h3>
+
+              <p>
+                Gentle, child-friendly cavity treatment, fluoride application,
+                and dental sealants.
+              </p>
+
+              <div class="service-price">
+                <b>From ₹1,200</b>
+                <a href="#appointment">Book Now →</a>
+              </div>
+            </div>
+
+            <div class="service-card reveal reveal-delay-2">
+              <div class="service-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M7 4h10"></path>
+                  <path d="M9 4v6"></path>
+                  <path d="M15 4v6"></path>
+                  <path d="M7 14h10"></path>
+                  <path d="M9 14v6"></path>
+                  <path d="M15 14v6"></path>
+                </svg>
+              </div>
+
+              <h3>Scaling &amp; Polishing</h3>
+
+              <p>
+                Deep cleaning to remove plaque and tartar, keeping gums healthy
+                and breath fresh.
+              </p>
+
+              <div class="service-price">
+                <b>From ₹999</b>
+                <a href="#appointment">Book Now →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SPECIALIST ===== -->
+      <section id="specialist">
+        <div class="container">
+          <div class="specialist">
+            <div class="specialist-photo reveal">
+              <div class="specialist-photo-frame">
+                <div class="specialist-photo-inner">
+                  <!-- Professional Doctor Image -->
+                  <img
+                    class="doctor-silhouette"
+                    src="assets/img/solutions.png"
+                    alt="Dr. Sri - Senior Dental Specialist"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="specialist-info reveal reveal-delay-1">
+              <div class="eyebrow">Meet Your Specialist</div>
+
+              <h2>Dr. Sri, BDS, MDS</h2>
+
+              <div class="specialist-role">
+                Senior Dental &amp; Implant Specialist
+              </div>
+
+              <p class="desc">
+                Dr. Sri is a Delhi NCR-based dental surgeon with over 10 years
+                of clinical experience in endodontics, cosmetic dentistry, and
+                full-mouth implant rehabilitation. Trained at a leading Indian
+                dental college and certified in advanced implantology, Dr. Sri
+                has treated over 5,000 patients from Delhi, Noida, Gurgaon, and
+                Ghaziabad with a gentle, patient-first approach.
+              </p>
+
+              <div class="cred-grid">
+                <div class="cred-item">
+                  <b>10+</b>
+                  <span>Years Experience</span>
+                </div>
+
+                <div class="cred-item">
+                  <b>5000+</b>
+                  <span>Patients Treated</span>
+                </div>
+
+                <div class="cred-item">
+                  <b>4.9★</b>
+                  <span>Patient Rating</span>
+                </div>
+              </div>
+
+              <div class="cred-tags">
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="margin-right:6px;vertical-align:-3px;"
+                  >
+                    <path d="M22 10v6M2 10v6"></path>
+                    <path d="M12 2l9 5-9 5-9-5 9-5z"></path>
+                    <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path>
+                  </svg>
+
+                  BDS, MDS (Endodontics)
+                </span>
+
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="margin-right:6px;vertical-align:-3px;"
+                  >
+                    <path
+                      d="M12 2c3 0 5 2.4 5 6v4c0 5-2 9-5 10-3-1-5-5-5-10V8c0-3.6 2-6 5-6z"
+                    ></path>
+                  </svg>
+
+                  Certified Implantologist
+                </span>
+
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="margin-right:6px;vertical-align:-3px;"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    ></path>
+                  </svg>
+
+                  Hindi &amp; English
+                </span>
+
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="margin-right:6px;vertical-align:-3px;"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                    ></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                  </svg>
+
+                  IDA Member
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== APPOINTMENT FORM ===== -->
+      <section id="appointment">
+        <div class="container appt-wrap">
+          <div class="appt-side reveal">
+            <div class="eyebrow">Book an Appointment</div>
+
+            <h2>Reserve your slot in under a minute</h2>
+
+            <p>
+              Fill in your details and our front-desk team will call you within
+              30 minutes to confirm your appointment at the clinic nearest to
+              you.
+            </p>
+
+            <div class="appt-perks">
+              <div class="appt-perk">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M20 6L9 17l-5-5"></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Free first consultation</h4>
+                  <p>
+                    No charges for your initial check-up and treatment plan.
+                  </p>
+                </div>
+              </div>
+
+              <div class="appt-perk">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 7v5l3 2"></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Same-day appointments</h4>
+                  <p>Emergency slots available across all NCR locations.</p>
+                </div>
+              </div>
+
+              <div class="appt-perk">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    ></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>WhatsApp confirmation</h4>
+                  <p>Get your appointment details and reminders on WhatsApp.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal reveal-delay-1">
+            <form class="appt-form" id="apptForm">
+              <div id="form-fields">
+                <div class="form-row">
+                  <div class="form-group full">
+                    <label for="fname">Full Name</label>
+                    <input
+                      type="text"
+                      id="fname"
+                      placeholder="e.g. Priya Sharma"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group full">
+                    <label for="fphone">Phone Number</label>
+
+                    <div class="phone-wrap">
+                      <span>+91</span>
+
+                      <input
+                        type="tel"
+                        id="fphone"
+                        placeholder="98XXX XXXXX"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="fdate">Preferred Date</label>
+
+                    <input type="date" id="fdate" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="fservice">Service Needed</label>
+
+                    <select id="fservice" required>
+                      <option value="" disabled selected>Select service</option>
+
+                      <option>Root Canal Treatment</option>
+                      <option>Braces / Aligners</option>
+                      <option>Dental Implants</option>
+                      <option>Teeth Whitening</option>
+                      <option>Kids' Dentistry</option>
+                      <option>Scaling &amp; Polishing</option>
+                      <option>General Check-up</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group full">
+                    <label for="flocation">Nearest Clinic Location</label>
+
+                    <select id="flocation" required>
+                      <option value="" disabled selected>Select location</option
+                      >
+
+                      <option>Delhi</option>
+                      <option>Noida</option>
+                      <option>Gurgaon</option>
+                      <option>Ghaziabad</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                  Confirm Appointment Request
+                </button>
+
+                <p class="form-note">
+                  By booking, you agree to be contacted via call/WhatsApp for
+                  confirmation.
+                </p>
+              </div>
+
+              <div id="form-success">
+                <span
+                  class="badge-icon"
+                  style="display:flex; margin:0 auto 16px;"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M20 6L9 17l-5-5"></path>
+                  </svg>
+                </span>
+
+                <h3>Appointment request received!</h3>
+
+                <p>
+                  Our team will call you shortly to confirm your slot. Thank you
+                  for choosing Smile Sutra Dental Clinic.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TESTIMONIALS ===== -->
+
+      <section class="section-alt" id="testimonials">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="eyebrow">Patient Stories</div>
+            <h2>Trusted by families across Delhi NCR</h2>
+            <p>
+              Real experiences from patients who chose Smile Sutra for their
+              dental care.
+            </p>
+          </div>
+
+          <div class="testi-grid">
+            <div class="testi-card reveal">
+              <div class="testi-stars">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+              </div>
+
+              <p class="quote">
+                "Got my root canal done in a single sitting with zero pain. Dr.
+                Sri explained everything clearly before starting. Highly
+                recommend to anyone in South Delhi."
+              </p>
+
+              <div class="testi-person">
+                <div class="testi-avatar">
+                  <img
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+                    alt="Rohit Kapoor"
+                    style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+                  />
+                </div>
+
+                <div>
+                  <b>Rohit Kapoor</b>
+                  <span>South Delhi</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testi-card reveal reveal-delay-1">
+              <div class="testi-stars">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+              </div>
+
+              <p class="quote">
+                "My daughter's braces treatment has been smooth from day one.
+                The clinic in Noida is clean, staff is friendly, and pricing was
+                exactly as quoted."
+              </p>
+
+              <div class="testi-person">
+                <div class="testi-avatar">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
+                    alt="Sunita Mehta"
+                    style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+                  />
+                </div>
+
+                <div>
+                  <b>Sunita Mehta</b>
+                  <span>Sector 62, Noida</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testi-card reveal reveal-delay-2">
+              <div class="testi-stars">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#F4B400"
+                  viewBox="0 0 24 24"
+                  ><path
+                    d="M12 2l2.9 6.3L22 9.3l-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7.1-1L12 2z"
+                  ></path></svg
+                >
+              </div>
+
+              <p class="quote">
+                "I was nervous about getting a dental implant, but the whole
+                process was painless and well explained. Best decision I made
+                this year."
+              </p>
+
+              <div class="testi-person">
+                <div class="testi-avatar">
+                  <img
+                    src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80"
+                    alt="Ankit Verma"
+                    style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+                  />
+                </div>
+
+                <div>
+                  <b>Ankit Verma</b>
+                  <span>DLF Phase 3, Gurgaon</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== CONTACT ===== -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-head reveal">
+            <div class="eyebrow">Visit Us</div>
+            <h2>Find us in Delhi NCR</h2>
+            <p>
+              Walk in or book ahead &mdash; we're open 7 days a week across our
+              NCR locations.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-cards reveal">
+              <div class="contact-card">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"
+                    ></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Main Clinic — Delhi</h4>
+                  <p>
+                    2nd Floor, Aggarwal Complex, Vikas Marg, Laxmi Nagar, New
+                    Delhi – 110092
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.08 3h3a2 2 0 0 1 2 1.72l.35 2.45a2 2 0 0 1-.57 1.74L8.1 10.67a16 16 0 0 0 5.23 5.23l1.76-1.76a2 2 0 0 1 1.74-.57l2.45.35A2 2 0 0 1 22 16.92z"
+                    ></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Call or WhatsApp</h4>
+                  <p>
+                    <a href="tel:+919810022334">+91 98100 22334</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://wa.me/919810022334">WhatsApp Us</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <polyline points="3 7 12 13 21 7"></polyline>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Email</h4>
+                  <p>
+                    <a href="mailto:care@smilesutraclinic.in">
+                      care@smilesutraclinic.in
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <polyline points="12 7 12 12 15 15"></polyline>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>Clinic Hours</h4>
+                  <p>Mon–Sun: 9:00 AM – 8:00 PM (All 7 days)</p>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <span class="badge-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 21h18"></path>
+                    <path d="M5 21V7l7-4 7 4v14"></path>
+                    <path d="M9 21v-6h6v6"></path>
+                    <path d="M9 10h.01"></path>
+                    <path d="M15 10h.01"></path>
+                  </svg>
+                </span>
+
+                <div>
+                  <h4>NCR Branches</h4>
+                  <p>
+                    Laxmi Nagar (Delhi) · Sector 62 (Noida) · DLF Phase 3
+                    (Gurgaon) · Vaishali (Ghaziabad)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="map-frame reveal reveal-delay-1">
+              <iframe
+                src="https://www.google.com/maps?q=Laxmi%20Nagar%2C%20New%20Delhi&output=embed"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Clinic location map"
+              >
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>
