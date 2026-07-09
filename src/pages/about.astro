@@ -1619,6 +1619,26 @@ import Layout from "../layouts/BlogPost.astro";
     }
   </style>
   <script is:inline>
+          const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const closeDrawer = document.getElementById("closeDrawer");
+      const mobileNav = document.getElementById("mobileNav");
+      const navOverlay = document.getElementById("navOverlay");
+
+      function openDrawer() {
+        mobileNav.classList.add("open");
+        navOverlay.classList.add("open");
+      }
+      function closeDrawerFn() {
+        mobileNav.classList.remove("open");
+        navOverlay.classList.remove("open");
+      }
+      hamburgerBtn.addEventListener("click", openDrawer);
+      closeDrawer.addEventListener("click", closeDrawerFn);
+      navOverlay.addEventListener("click", closeDrawerFn);
+      mobileNav
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeDrawerFn));
+
     // Scroll reveal
     const revealEls = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver(
